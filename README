@@ -1,0 +1,60 @@
+configuring a system:
+
+email stuff
+
+apt install mutt
+apt install msmtp
+apt install gnuplot
+
+The msmtp_rc needs to be copied to .msmtprc in the home dir
+You may need to edit for different email destinations
+The password comes from gmail, its currently embedded in the msmtp_rc file
+
+All the other scripts go in the home dir
+
+send_temp.sh may needs edits for different home dir names
+
+sensor software:
+
+compile the code:
+
+gcc -o bme -g BME280.cpp
+
+edits may be needed for different i2c bus values, /dev/i2c-1, /dev/i2c-3, etc
+
+Testing the hardware:
+
+This can be tested with this command: (the sensor board needs to be connected)
+"i2cdetect -y 3" (this would be /dev/i2c-3 bus, typical for the Radxa Zero)
+Will show device detected at address 0x76 like below example, Raspberry pi is typically bus 1.
+
+root@raspberrypi:/home/pmb# i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- 76 -- 
+
+Setting up auto start and daily emails of data:
+
+This is all done with cron, as root, run crontab -e, it will bring up a vi 
+editor and the cron entries can be added. To run a task at boot "@reboot (cmd)"
+
+@reboot /home/pmb/clean_data.sh (script that cleans out old data file)
+@reboot /home/pmb/reboot_time.sh (tracks reboot time)
+@reboot /home/pmb/bme (main data collection of temp and humidity)
+
+Setting up daily emails of data:
+
+Also done via cron
+
+run crontab -e as regular user,  (not root), add these entries
+
+10 * * * *  /home/pmb/reboot_alert.sh
+20 * * * *  /home/pmb/reboot_alert.sh
+50 * * * *  /home/pmb/reboot_alert.sh
+0 21 * * *  /home/pmb/send_temp.sh

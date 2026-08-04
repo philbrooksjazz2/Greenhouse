@@ -1,0 +1,11 @@
+account default
+host smtp.gmail.com
+port 587
+from philbrooksjazz@gmail.com
+auth on
+user philbrooksjazz@gmail.com
+password hwnn yeoz qogx zpci
+tls on
+tls_starttls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+# logfile LOG_MAIL
