@@ -48,7 +48,8 @@ void main()
     int min = tm.tm_min;
     int sec = tm.tm_sec;
     char fstring[128];
-    sprintf(fstring,"/home/rock/t_data_%d_%d_%d_%d",day,hour,min,sec);
+    //sprintf(fstring,"/home/rock/t_data_%d_%d_%d_%d",day,hour,min,sec);
+    sprintf(fstring,"/home/rock/t_data_current_%d",0);
     ioctl(file,I2C_SLAVE,0x76);
     getTempCal(file,pTempCal); 
     getPresCal(file,pPresCal); 
@@ -66,12 +67,14 @@ int read_print(int file, char *fstring)
     FILE *fpLowTemp;
     FILE *fpHighTemp;
     float fLowTemp = 0;
+    char hostname[16];
     float fHighTemp = 0;
     char sLowTemp[32];
     char sHighTemp[32];
     char *pEnd;
     char data[24];
 
+    gethostname(hostname,16);
 #ifdef NOT
     fpLowTemp = fopen("/home/rock/LowTemp","r+");
     fpHighTemp = fopen("/home/rock/HighTemp","r+");
@@ -137,7 +140,7 @@ int read_print(int file, char *fstring)
     double pressure = (p + (var1 + var2 + ((double)pPresCal[7])) / 16.0) / 100;
     
     // Output data to screen
-    fprintf(fp1," %.2f hPa %.2f deg C %.2f hum %d\n", pressure, fTemp,nHumPercent, epoch_time);
+    fprintf(fp1," %s %.2f hPa %.2f deg C %.2f hum %d\n",hostname, pressure, fTemp,nHumPercent, epoch_time);
     printf(" %.2f hPa %.2f deg C %.2f hum %d\n", pressure, fTemp,nHumPercent, epoch_time);
 #ifdef NOT
     if (fTemp < fLowTemp)
