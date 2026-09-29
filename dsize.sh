@@ -1,25 +1,28 @@
 #/bin/bash
 
-HDIR=pmb
+SHELL=/bin/bash
+HDIR=rock
 
 # backup old data
 cd /home/${HDIR}
 fpath="/home/${HDIR}/t_data*"
-echo $fpath
+echo 1 > dlog
+echo $fpath >> dlog
 fname="${fpath##*/}"
-
-echo $fname
-
-idx=$(<data_index)
-echo $idx
+echo 2 >> dlog
+echo $fname >> dlog
+echo 3 >> dlog
+idx=$(cat /home/rock/data_index)
+echo $idx >> dlog
 echo $fname > nfilename
-nf2=$(<nfilename)
-echo $nf2
+nf2=$(cat nfilename)
+echo $nf2 >> dlog
 nfile3=${nf2}.${idx}
 echo $nfile3
 cp /home/${HDIR}/$fname /home/${HDIR}/archive/$nfile3
-((idx++))
-echo $idx>data_index
+idx=$((idx + 1))
+echo $idx >> dlog
+echo $idx>/home/rock/data_index
 
 # truncate data file
 
