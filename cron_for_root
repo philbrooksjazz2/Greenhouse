@@ -1,0 +1,8 @@
+This is the way cron for the root user should look:
+
+The dsize.sh script can be run at any time, but ideally just before the
+plots are created and sent
+
+@reboot /home/ghdata/reboot_time.sh
+@reboot /home/ghdata/bme
+00 16 * * * /home/ghdata/dsize.sh

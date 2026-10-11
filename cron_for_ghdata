@@ -1,0 +1,14 @@
+Cron file for ghdata user
+
+1. Reboot alert every 10 min
+
+2. Send plot once per day
+
+10 * * * * /home/ghdata/reboot_alert.sh
+20 * * * * /home/ghdata/reboot_alert.sh
+30 * * * * /home/ghdata/reboot_alert.sh
+40 * * * * /home/ghdata/reboot_alert.sh
+50 * * * * /home/ghdata/reboot_alert.sh
+00 * * * * /home/ghdata/reboot_alert.sh
+
+00 21 * * * /home/ghdata/send_plot.sh
