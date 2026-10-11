@@ -35,7 +35,7 @@ void main()
 {
     // Create I2C bus
     int file;
-    char *bus = "/dev/i2c-3";
+    char *bus = "/dev/i2c-1";
     if((file = open(bus, O_RDWR)) < 0) 
     {
         printf("Failed to open the bus. \n");
@@ -49,7 +49,7 @@ void main()
     int sec = tm.tm_sec;
     char fstring[128];
     //sprintf(fstring,"/home/rock/t_data_%d_%d_%d_%d",day,hour,min,sec);
-    sprintf(fstring,"/home/rock/t_data_current_%d",0);
+    sprintf(fstring,"/home/ghdata/t_data_current");
     ioctl(file,I2C_SLAVE,0x76);
     getTempCal(file,pTempCal); 
     getPresCal(file,pPresCal); 
