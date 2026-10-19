@@ -4,8 +4,8 @@ SHELL=/bin/bash
 HDIR=ghdata
 # chunk size, in lines
 # typically 1 days worth of data
-C_SIZE_DAY=27917
-C_SIZE_5DAY=139585
+C_SIZE_DAY=28800
+C_SIZE_5DAY=144000
 
 # backup old data
 cd /home/${HDIR}
