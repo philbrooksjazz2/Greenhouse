@@ -7,12 +7,14 @@ apt install msmtp
 apt install gnuplot
 
 The msmtp_rc needs to be copied to .msmtprc in the home dir
+This file needs to be set to 600 permissions -rw-------
 You may need to edit for different email destinations
 The password comes from gmail, its currently embedded in the msmtp_rc file
+Copy the mutt_rc file to .muttrc in the home dir
 
 All the other scripts go in the home dir
 
-send_temp.sh may needs edits for different home dir names
+send_plot.sh may needs edits for different home dir names (fixed)
 
 sensor software:
 
@@ -48,6 +50,7 @@ editor and the cron entries can be added. To run a task at boot "@reboot (cmd)"
 @reboot /home/pmb/reboot_time.sh (tracks reboot time)
 @reboot /home/pmb/bme (main data collection of temp and humidity)
 
+(note - now there are cron examples in git
 Setting up daily emails of data:
 
 Also done via cron
