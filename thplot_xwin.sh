@@ -42,7 +42,7 @@ gnuplot -persist <<- EOF
 #    print fileNameLength
 #    print "FileID:   ".fileID."\n"            
 
-    plotTitle = "Greenhouse outdoor ambient Temp Humidity"
+    plotTitle = "`echo $HOSTNAME` Temp Humidity"
 
     if (1) \
     {
